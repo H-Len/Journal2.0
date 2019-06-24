@@ -1,4 +1,5 @@
-import { myJournal } from './journal';
+import { myJournal } from './journal.js';
+import './journal.js';
 import './styles.css';
 
 $(document).ready(function() {
@@ -6,9 +7,10 @@ $(document).ready(function() {
     event.preventDefault();
     var title = $('#title').val();
     var body = $('#body').val();
-    var output = myJournal(title, body);
-    output.forEach(function(element) {
-      $('#solution').append("<li>" + element + "</li>");
-    });
+    var wordNum = new myJournal(title, body);
+    // document.write(title + '<br>');
+    // document.write(body + '<br>');
+    var words = wordNum.countWord();
+    $('#solution').append(words);
   });
 });

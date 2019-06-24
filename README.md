@@ -25,109 +25,109 @@ practice of webpack configuration with new website creation.
 | node_modules/                                       |                             |                                 |
 | .DS_Store                                           |                             |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (modify package.json)                               |                             |                                 |    
-| ...
-|
-| "scripts": {
-|     "build": "webpack"
-|  },
-| ...
+| (modify package.json)                               |                             |                                 |
+| ...                                                 |                             |                                 |
+|                                                     |                             |                                 |
+| "scripts": {                                        |                             |                                 |
+|     "build": "webpack"                              |                             |                                 |
+|  },                                                 |                             |                                 |
+| ...                                                 |                             |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (configure webpack by making webpack.config.js)     |
-| const path = require('path');
-|
-| module.exports = {
-|  entry: './src/main.js',
-|  output: {
-|    filename: 'bundle.js',
-|    path: path.resolve(__dirname, 'dist')
-|  }
-| };
+| (configure webpack by making webpack.config.js)     |                             |                                 |
+| const path = require('path');                       |                             |                                 |
+|                                                     |                             |                                 |
+| module.exports = {                                  |                             |                                 |
+|  entry: './src/main.js',                            |                             |                                 |
+|  output: {                                          |                             |                                 |
+|    filename: 'bundle.js',                           |                             |                                 |
+|    path: path.resolve(__dirname, 'dist')            |                             |                                 |
+|  }                                                  |                             |                                 |
+| };                                                  |                             |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (making directory for coding itself)        
-| mkdir dist src
-| touch dist/index.html src/main.js src/journal.js
+| (making directory for coding itself)                |                             |                                 |
+| mkdir dist src                                      |                             |                                 |
+| touch dist/index.html src/main.js src/journal.js    |                             |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (do something in index.html under dist dir)
-| ....
-| ....Even though it is not working in this stage, just write it and use it for entire setup for webpack
-| ....
+| (do something in index.html under dist dir)         |                             |                                 |
+| ....                                                |                             |                                 |
+| ....Even though it is not working in this stage, just write it and use it for entire setup for webpack  ||          |
+| ....                                                |                             |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (do something in journal.js under src dir)
-| ....
-| ....Even though it is not working in this stage, just write it and use it for entire setup for webpack
-| ....
+| (do something in journal.js under src dir)          |                             |                                 |
+| ....                                                |                             |                                 |
+| ....Even though it is not working in this stage, just write it and use it for entire setup for webpack    ||        |
+| ....                                                |                             |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (do something in main.js under src dir)
-| ....
-| ....Even though it is not working in this stage, just write it and use it for entire setup for webpack
-| ....
+| (do something in main.js under src dir)             |                             |                                 |
+| ....                                                |                             |                                 |
+| ....Even though it is not working in this stage, just write it and use it for entire setup for webpack    ||        |
+| ....                                                |                             |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (bundling code in root dir)
-| npm run build
+| (bundling code in root dir)                         |                             |                                 |
+| npm run build                                       |                             |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (add a line to .gitignore for excluding the dist folder)
-|
-| .gitignore --->
-| node_modules/
-| .DS_Store
-| dist/
+| (add a line to .gitignore for excluding the dist folder) |                        |                                 |
+|                                                     |                             |                                 |
+| .gitignore --->                                     |                             |                                 |
+| node_modules/                                       |                             |                                 |
+| .DS_Store                                           |                             |                                 |
+| dist/                                               |                             |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (We need a bundle our css files, so we'll install style-loader)
-|
-| npm install style-loader@0.20.2 css-loader@0.28.10 --save-dev
+| (We need a bundle our css files, so we'll install style-loader)                   |                                 |
+|                                                     |                             |                                 |
+| npm install style-loader@0.20.2 css-loader@0.28.10 --save-dev                     |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (Update webpack.config.js)
-|
-| const path = require('path');
-|
-| module.exports = {
-|   entry: './src/main.js',
-|   output: {
-|     filename: 'bundle.js',
-|     path: path.resolve(__dirname, 'dist')
-|   },
-|   module: {
-|     rules: [
-|       {
-|         test: /\.css$/,
-|         use: [
-|           'style-loader',
-|           'css-loader'
-|         ]
-|       }
-|     ]
-|   }
-| };
+| (Update webpack.config.js)                          |                             |                                 |    
+|                                                     |                             |                                 |  
+| const path = require('path');                       |                             |                                 |    
+|                                                     |                             |                                 |  
+| module.exports = {                                  |                             |                                 |                      
+|   entry: './src/main.js',                           |                             |                                 |                            
+|   output: {                                         |                             |                                 |              
+|     filename: 'bundle.js',                          |                             |                                 |                              
+|     path: path.resolve(__dirname, 'dist')           |                             |                                 |                                            
+|   },                                                |                             |                                 |        
+|   module: {                                         |                             |                                 |              
+|     rules: [                                        |                             |                                 |                
+|       {                                             |                             |                                 |          
+|         test: /\.css$/,                             |                             |                                 |                          
+|         use: [                                      |                             |                                 |                  
+|           'style-loader',                           |                             |                                 |                            
+|           'css-loader'                              |                             |                                 |                          
+|         ]                                           |                             |                                 |            
+|       }                                             |                             |                                 |          
+|     ]                                               |                             |                                 |        
+|   }                                                 |                             |                                 |      
+| };                                                  |                             |                                 |      
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (Add css style or making image folder under src directory, blah blah blah)
-|
-| src/styles.css
-| body {
-|   background-color: #7FDBFF;
-| }
+| (Add css style or making image folder under src directory, blah blah blah)  |||
+|     |||
+| src/styles.css|||
+| body {|||
+|   background-color: #7FDBFF;|||
+| }|||
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (Now we import css into our main.js (user-interface file) file under src directory.)
-| src/main.js -->
-| import './styles.css';
+| (Now we import css into our main.js (user-interface file) file under src directory.) | |                            |
+| src/main.js -->                                     |                             |                                 |
+| import './styles.css';                              |                             |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (It's time to $ npm run build. Now if we refresh the browser, we'll see our new CSS rule has been applied.)
-| npm run build                                       |             
+| (It's time to $ npm run build. Now if we refresh the browser, we'll see our new CSS rule has been applied.) | |     |    
+| npm run build                                       |                             |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
 | (Now, it is step for plugin for html and you need to install html webpack)        |                                 |
-| npm install html-webpack-plugin@3.0.6 --save-dev
+| npm install html-webpack-plugin@3.0.6 --save-dev    |                             |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (Before we install the plugin, let's move our index.html file from the dist folder to the src folder.)
-| (From now on, we'll let webpack handle bundling our HTML and outputting it to dist.)
+| (Before we install the plugin, let's move our index.html file from the dist folder to the src folder.) | |          |
+| (From now on, we'll let webpack handle bundling our HTML and outputting it to dist.) | |                            |                 
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
 | (Let's also update webpack.config.js:)              |                             |                                 |
-|
-| const path = require('path');
-| const HtmlWebpackPlugin = require('html-webpack-plugin');   <-------------------
-|
-| module.exports = {
-|   entry: './src/main.js',
-|   output: {
+|                                                     |                             |                                 |
+| const path = require('path');                       |                             |                                 |
+| const HtmlWebpackPlugin = require('html-webpack-plugin');   <------------------ | |                                 |
+|                                                     |                             |                                 |
+| module.exports = {                                  |                             |                                 |
+|   entry: './src/main.js',                           |                             |                                 |
+|   output: {                                         |                             |                                 |
 |     filename: 'bundle.js',
 |     path: path.resolve(__dirname, 'dist')
 |   },
@@ -313,7 +313,11 @@ practice of webpack configuration with new website creation.
 |  },
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
 | npm run lint
-|
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| Readme for actual coding today ...... |||
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
 |
 |
 |
