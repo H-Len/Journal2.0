@@ -253,9 +253,80 @@ practice of webpack configuration with new website creation.
 |    "start": "npm run build; webpack-dev-server --open --mode development"   <---------------
 |  },
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-
-
-
+| (Now we will add eslint and eslint-loader, which allows us to use the linter with webpack.)
+|
+| npm install eslint@4.18.2 --save-dev
+| npm install eslint-loader@2.0.0 --save-dev
+|
+| (Now we update the webpack.config.js)
+|
+|module.exports = {
+|   ...
+|   module: {
+|     rules: [
+|       {
+|         test: /\.css$/,
+|         use: [
+|           'style-loader',
+|           'css-loader'
+|         ]
+|       },                  <------------add this comma!
+|       {                             <--------add these
+|         test: /\.js$/,              <--------add these
+|         exclude: /node_modules/,    <--------add these
+|         loader: "eslint-loader"     <--------add these
+|       }                             <--------add these
+|     ]
+|   }
+| };
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (Now make a .eslintrc file in the root directory of the project and add this code.)
+|
+| {
+|     "parserOptions": {
+|         "ecmaVersion": 6,
+|         "sourceType": "module"
+|     },
+|     "extends": "eslint:recommended",
+|     "env": {
+|       "es6": true,
+|       "browser": true,
+|       "jquery": true
+|     },
+|     "rules": {
+|         "semi": 1,
+|         "indent": ["warn", 2],
+|         "no-console": "warn",
+|         "no-debugger": "warn"
+|     }
+| }
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| npm run build
+| (if you have any errors for undefined variables, comment them out if necessary, until fixed.)
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (now let's change the script in our package.json file.)
+|
+| "scripts": {
+|    "build": "webpack --mode development",
+|    "start": "npm run build; webpack-dev-server --open --mode development", <---add comma
+|    "lint": "eslint src/*.js"                <----------------------new line
+|  },
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| npm run lint
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
 ## Setup/Installation Requirements
 
 1. To run this program, clone repository from this GitHub.
