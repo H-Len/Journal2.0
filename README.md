@@ -153,13 +153,108 @@ practice of webpack configuration with new website creation.
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
 | (Before we $ npm run build,  remove the <script> tag currently linking our bundled JavaScript from index.html)
 | (remove this line only: <script type="text/javascript" src="bundle.js"></script>)
-| npm run build  |
+| npm run build  |   |   It create index.html again in dist dir. |
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (clean up clutterd dist dir....)
+| npm install clean-webpack-plugin@0.1.18 --save-dev
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (Then simply add the plugin to our configuration file:)
+| ...
 |
+| const CleanWebpackPlugin = require('clean-webpack-plugin');   <---------------
 |
+| module.exports = {
 |
+|   ...
 |
+|   plugins: [
+|     new CleanWebpackPlugin(['dist']),   // new line <---------------
+|     new HtmlWebpackPlugin({
+|       title: 'Ping Pong',
+|       template: './src/index.html',
+|       inject: 'body'
+|     })
+|   ],
 |
+|   ...
 |
+| }
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| npm run build
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (Minifying (or "Uglifying") Code)
+| npm install uglifyjs-webpack-plugin@1.2.2 --save-dev
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (Next, we need to make the plugin available to our application: in webpack.config.js.....)
+| ...
+| const UglifyJsPlugin = require('uglifyjs-webpack-plugin');  // new line     <--------------------
+|
+| module.exports = {
+|   ...
+|   plugins: [
+|     new UglifyJsPlugin(),    // new line    <------------------
+|     new CleanWebpackPlugin(['dist']),
+|     new HtmlWebpackPlugin({
+|       title: 'Ping Pong',
+|       template: './src/index.html',
+|       inject: 'body'
+|     })
+|   ],
+|   ...
+| }
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| npm run build
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (now we set up a live server to run our project on.)
+|
+| npm install webpack-dev-server@3.1.0 --save-dev
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (Now we update webpack.config.js)
+|
+| module.exports = {
+|  entry: './src/main.js',
+|  output: {
+|    filename: 'bundle.js',
+|    path: path.resolve(__dirname, 'dist')
+|  }, <--------DON'T forget the comma------------
+|  devtool: 'eval-source-map',  <------------------change these.
+|  devServer: {                 <------------------change these.
+|    contentBase: './dist'      <------------------change these.  
+|  },                           <------------------change these.
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (Now we update webpack.config.js)
+| new UglifyJsPlugin(),    ----------> new UglifyJsPlugin({ sourceMap: true }),
+| npm run build | enter | nothing will happen .....
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (for package.json file,)
+|   "scripts": {
+|    "build": "webpack",
+|    "start": "webpack-dev-server --open"
+|  },
+|
+| npm run start | enter | it will pop out automatically new browser in your screen !!!
+| This is great option for interactive development in real world situation.
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| You may need another command line prompt in your terminal ....
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (For Development and Production Modes, We can set the mode by altering the command for build in scripts:)
+| package.json -->
+| ...
+|  "build": "webpack", ------------->  "build": "webpack --mode development",
+| ...
+| This next portion will allow our npm run start to also set its mode to development.
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (If you want interactive web server for coding and releasing distribution at the same time,
+| do followings in package.json )
+|
+| "scripts": {
+|    "build": "webpack --mode development",
+|    "start": "npm run build; webpack-dev-server --open --mode development"   <---------------
+|  },
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+
+
 
 ## Setup/Installation Requirements
 
