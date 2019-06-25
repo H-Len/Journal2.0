@@ -1,5 +1,5 @@
-import { myJournal } from './journal.js';
-import './journal.js';
+import { Triangle } from './triangle.js';
+import './triangle.js';
 import './styles.css';
 import $ from 'jquery';
 import 'bootstrap';
@@ -10,7 +10,7 @@ $(document).ready(function() {
     event.preventDefault();
     var title = $('#title').val();
     var body = $('#body').val();
-    var wordNum = new myJournal(title, body);
+    var wordNum = new Triangle(title, body);
     // document.write(title + '<br>');
     // document.write(body + '<br>');
     var words = wordNum.countWord();
