@@ -11,6 +11,10 @@ $(document).ready(function() {
     // document.write(title + '<br>');
     // document.write(body + '<br>');
     var words = wordNum.countWord();
-    $('#solution').append(words);
+    var vowels = wordNum.countVowel();
+    var teaser = wordNum.getTeaser();
+    $('#solution1').text(words);
+    $('#solution2').text(vowels);
+    $('#solution3').text(teaser);
   });
 });

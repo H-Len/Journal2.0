@@ -11,9 +11,25 @@ myJournal.prototype.countWord = function () {
 };
 
 myJournal.prototype.countVowel = function () {
-  var vowels = ['a', 'e', 'i', 'o', 'u']
-  var vowelTitle = this.title.split(' ');
-  var vowelBody = this.body.split(' ');
-  console.log(vowelTitle);
+  var titleChar = this.title.toLowerCase().replace(/\W/gi, '');
+  var bodyChar = this.body.toLowerCase().replace(/\W/gi, '');
+  var charNum = (titleChar + bodyChar).split('');
+  var vowelNum = 0;
+  for (var i = 0; i < charNum.length; i++) {
+    if (charNum[i] === 'a' || charNum[i] === 'e' || charNum[i] === 'i' || charNum[i] === 'o' || charNum[i] === 'u') {
+      vowelNum += 1;
+    }
+  }
+  return vowelNum;
+};
 
+myJournal.prototype.getTeaser = function () {
+  var teaser = this.body.split(' ');
+  var myTeaser = [];
+  for (var i = 0; i < 8; i++) {
+    if (teaser[i]) {
+      myTeaser.push(teaser[i]);
+    }
+  }
+  return myTeaser.join(' ');
 };
