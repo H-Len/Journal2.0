@@ -100,12 +100,12 @@ practice of webpack configuration with new website creation.
 |   }                                                 |                             |                                 |      
 | };                                                  |                             |                                 |      
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
-| (Add css style or making image folder under src directory, blah blah blah)  |||
-|     |||
-| src/styles.css|||
-| body {|||
-|   background-color: #7FDBFF;|||
-| }|||
+| (Add css style or making image folder under src directory, blah blah blah)|       |                                 |
+|                                                     |                             |                                 |
+| src/styles.css                                      |                             |                                 |
+| body {                                              |                             |                                 |
+|   background-color: #7FDBFF;                        |                             |                                 |
+| }                                                   |                             |                                 |
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
 | (Now we import css into our main.js (user-interface file) file under src directory.) | |                            |
 | src/main.js -->                                     |                             |                                 |
@@ -319,18 +319,128 @@ practice of webpack configuration with new website creation.
 | Readme for actual coding today ...... |||
 | :-------------------------------------------------- | :-------------------------- | :------------------------------ |
 |
+
+### spec
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (install jQuery for development & Production)
+| npm install jquery --save
+| (Don't forget to remove the scripts tag for jQuery from index.html)
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (Make sure you have jQuery and Popper.js installed properly first before installing Bootstrap.)
+| npm install popper.js --save
+| npm install bootstrap --save
+| (You will see these lines in package.json --->
+| ...
+|  "dependencies": {
+|    "bootstrap": "^4.0.0",
+|    "jquery": "^3.3.1",
+|    "popper.js": "^1.14.0"
+|  })
+| ...
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (In main.js, we add these two lines)
+| import 'bootstrap';
+| import 'bootstrap/dist/css/bootstrap.min.css';
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (installing Jasmine ....)
+| npm install jasmine-core@2.99.0 --save-dev
+| npm install jasmine@3.1.0 --save-dev
+| (Next, we'll initialize Jasmine:)
+| ./node_modules/.bin/jasmine init
+| (In package.json, add this line but don't forget the comma )
+| ...
+| "scripts": {
+| "lint": "eslint src/*.js", <-------- add comma before "test": "jasmine"  
+| "test": "jasmine"
+| }
+| ....
+| (run test command for jasmine ...)
+| npm test
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+
+ ### spec
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (installing Karma and don't forget to do npm install before doing these steps.)
+| npm install karma@2.0.0 --save-dev
+| npm install karma-jasmine@1.1.1 --save-dev
+| npm install karma-chrome-launcher@2.2.0 --save-dev
+| npm install karma-cli@1.0.1 -g
+| npm install karma-cli@1.0.1 --save-dev
+| npm install karma-webpack@2.0.13 --save-dev
+| npm install karma-jquery@0.2.2 --save-dev
+| npm install karma-jasmine-html-reporter@0.2.2 --save-dev
+| npm install karma-sourcemap-loader@0.3.7 --save-dev
+| karma init
+| (You’ll be prompted to answer a series of questions. Go ahead and hit Enter until the prompts are finished. If you receive |  bash error after running this command, this could be because your machine doesn't recognize the karma command.
+| Double-check that you've successfully installed Karma CLI globally with $ npm install -g karma-cli, as mentioned above.
+| You may need to quit and re-start your Terminal.)
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (Configuring Karma ---> karma.conf.js in home directory.)
+| const webpackConfig = require('./webpack.config.js');
 |
-|
-|
-|
-|
-|
-|
-|
-|
-|
-|
-|
+| module.exports = function(config) {
+|  config.set({
+|    basePath: '',
+|    frameworks: ['jquery-3.2.1', 'jasmine'],
+|    files: [
+|      'src/*.js',
+|      'spec/*spec.js'
+|    ],
+|    webpack: webpackConfig,
+|    exclude: [
+|    ],
+|    preprocessors: {
+|      'src/*.js': ['webpack', 'sourcemap'],
+|      'spec/*spec.js': ['webpack', 'sourcemap']
+|    },
+|    plugins: [
+|      'karma-jquery',
+|      'karma-webpack',
+|      'karma-jasmine',
+|      'karma-chrome-launcher',
+|      'karma-jasmine-html-reporter',
+|      'karma-sourcemap-loader'
+|    ],
+|    reporters: ['progress', 'kjhtml'],
+|    port: 9876,
+|    colors: true,
+|    logLevel: config.LOG_INFO,
+|    autoWatch: true,
+|    browsers: ['Chrome'],
+|    singleRun: false,
+|    concurrency: Infinity
+|  })
+| }
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (add test line in package.json)
+| ----> package.json
+| ...
+|   "scripts": {
+|     "test": "./node_modules/karma/bin/karma start karma.conf.js"  <------  "test": "jasmine" // repalce jasmine!
+|   },
+| ...
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ |
+| (modify webpack.config.js for karma)
+|          ...
+|          exclude: [                  <-------------
+|            /node_modules/,           <-------------
+|            /spec/                    <------------- add these line!
+|          ],                          <------------- don't forget comma!
+|          ...
+| :-------------------------------------------------- | :-------------------------- | :------------------------------ | |          
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Setup/Installation Requirements
 
 1. To run this program, clone repository from this GitHub.
